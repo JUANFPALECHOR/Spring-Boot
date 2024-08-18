@@ -17,11 +17,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonaDto {
+public class PersonaDto{
 
     // Campos de la clase:
-    private String nombre;   // El nombre de la persona
-    private String apellido; // El apellido de la persona
+    private String nombre;
+    private String apellido;
 }
 
 /*

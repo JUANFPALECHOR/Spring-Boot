@@ -1,6 +1,8 @@
 package com.bootcamp_2024_1.api_personas.controller;
 
 import com.bootcamp_2024_1.api_personas.dto.PersonaDto;
+import com.bootcamp_2024_1.api_personas.persistencia.PersonaRepositorylmpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Array;
@@ -12,10 +14,14 @@ import java.util.List;
    Configuración del Controlador REST:
    - @RestController: Marca la clase como un controlador REST, que manejará solicitudes HTTP.
    - @RequestMapping("/personas"): Define la URL base para todas las rutas dentro de esta clase.
+
+    Se encarga únicamente de recibir las peticiones HTTP y de devolver respuestas
+
 */
 
 @RestController
 @RequestMapping("/personas")
+@RequiredArgsConstructor // genera el constructor automaticamente para inyectar la clase PersonaRepositorylmpl a PersonaControlle
 public class PersonaControlle {
 
     /*
@@ -24,26 +30,19 @@ public class PersonaControlle {
        - Método obtenerPersona(): Retorna un objeto PersonaDto con datos de ejemplo.
     */
 
-    private ArrayList<PersonaDto> Basededatos;
+    private final PersonaRepositorylmpl personaRepository;
 
-    public PersonaControlle() {
-        this.Basededatos = new ArrayList<>();
-        this.Basededatos.add(
-                new PersonaDto("andres","vazques")
-        );
-    }
 
-//
 
     @GetMapping()
     private List<PersonaDto> obtenerPersonas() {
 
-        return this.Basededatos;
+        return personaRepository.obtenerPersonas();
     }
 
     @PostMapping
     private PersonaDto crearPersona(@RequestBody PersonaDto persona) {
-        this.Basededatos.add(persona);
+        this.personaRepository.crearPersona(persona);
         return persona;
     }
 }
