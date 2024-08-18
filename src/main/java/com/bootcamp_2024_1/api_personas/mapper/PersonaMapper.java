@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 
+
+//
 public interface PersonaMapper {
 
     PersonaDto personaDtoPersonaEntity(PersonaEntity persona);
