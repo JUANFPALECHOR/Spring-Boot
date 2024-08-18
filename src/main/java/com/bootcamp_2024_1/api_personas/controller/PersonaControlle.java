@@ -1,12 +1,14 @@
 package com.bootcamp_2024_1.api_personas.controller;
 
 import com.bootcamp_2024_1.api_personas.dto.PersonaDto;
-import com.bootcamp_2024_1.api_personas.persistencia.PersonaRepositorylmpl;
+import com.bootcamp_2024_1.api_personas.mapper.PersonaMapper;
+import com.bootcamp_2024_1.api_personas.persistencia.entity.PersonaEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import com.bootcamp_2024_1.api_personas.persistencia.repository.PersonaRepository;
+import java.util.stream.Collectors;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+
 import java.util.List;
 
 
@@ -30,20 +32,32 @@ public class PersonaControlle {
        - Método obtenerPersona(): Retorna un objeto PersonaDto con datos de ejemplo.
     */
 
-    private final PersonaRepositorylmpl personaRepository;
+    private final PersonaRepository personaRepository;
+
+    private final PersonaMapper personaMapper;
+
+
 
 
 
     @GetMapping()
     private List<PersonaDto> obtenerPersonas() {
+        return personaRepository
+                .findAll() // Debe ser en minúsculas
+                .stream()
+                .map(personaEntity -> personaMapper.personaDtoPersonaEntity(personaEntity))
+                .collect(Collectors.toList());
 
-        return personaRepository.obtenerPersonas();
     }
 
     @PostMapping
     private PersonaDto crearPersona(@RequestBody PersonaDto persona) {
-        this.personaRepository.crearPersona(persona);
-        return persona;
+        PersonaEntity personaEntity = this.personaRepository.save(
+                personaMapper.personaEntityToPersonaDto(persona)
+
+
+        );
+        return personaMapper.personaDtoPersonaEntity(personaEntity);
     }
 }
 
