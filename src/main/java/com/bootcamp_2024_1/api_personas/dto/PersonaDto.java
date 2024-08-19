@@ -22,6 +22,7 @@ public class PersonaDto{
     // Campos de la clase:
     private String nombre;
     private String apellido;
+    private Long edad;
 }
 
 /*

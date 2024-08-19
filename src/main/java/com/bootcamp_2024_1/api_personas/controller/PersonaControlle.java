@@ -45,7 +45,8 @@ public class PersonaControlle {
         return personaRepository
                 .findAll() // Debe ser en minúsculas
                 .stream()
-                .map(personaEntity -> personaMapper.personaDtoPersonaEntity(personaEntity))
+                .map(personaEntity -> personaMapper.personaEntityToPersonaDto(personaEntity))
+
                 .collect(Collectors.toList());
 
     }
@@ -53,11 +54,13 @@ public class PersonaControlle {
     @PostMapping
     private PersonaDto crearPersona(@RequestBody PersonaDto persona) {
         PersonaEntity personaEntity = this.personaRepository.save(
-                personaMapper.personaEntityToPersonaDto(persona)
+                personaMapper.personaDtoToPersonaEntity(persona)
+
 
 
         );
-        return personaMapper.personaDtoPersonaEntity(personaEntity);
+        return personaMapper.personaEntityToPersonaDto(personaEntity);
+
     }
 }
 

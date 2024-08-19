@@ -11,7 +11,9 @@ import org.mapstruct.Mapper;
 //
 public interface PersonaMapper {
 
-    PersonaDto personaDtoPersonaEntity(PersonaEntity persona);
+    // Este método convierte de DTO a Entidad
+    PersonaEntity personaDtoToPersonaEntity(PersonaDto persona);
 
-    PersonaEntity personaEntityToPersonaDto(PersonaDto persona);
+    // Este método convierte de Entidad a DTO
+    PersonaDto personaEntityToPersonaDto(PersonaEntity persona);
 }
